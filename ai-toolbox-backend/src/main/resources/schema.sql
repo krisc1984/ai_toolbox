@@ -5,115 +5,115 @@ USE ai_toolbox;
 
 -- 用户表
 CREATE TABLE IF NOT EXISTS sys_user (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    nickname VARCHAR(50),
-    email VARCHAR(100),
-    avatar VARCHAR(255),
-    role VARCHAR(20) DEFAULT 'USER',
-    status TINYINT DEFAULT 1,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '用户ID',
+    username VARCHAR(50) UNIQUE NOT NULL COMMENT '用户名',
+    password VARCHAR(100) NOT NULL COMMENT '密码',
+    nickname VARCHAR(50) COMMENT '昵称',
+    email VARCHAR(100) COMMENT '邮箱',
+    avatar VARCHAR(255) COMMENT '头像',
+    role VARCHAR(20) DEFAULT 'USER' COMMENT '角色',
+    status TINYINT DEFAULT 1 COMMENT '状态',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT='用户表';
 
 -- AI应用表
 CREATE TABLE IF NOT EXISTS ai_application (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    category VARCHAR(50),
-    icon VARCHAR(255),
-    url VARCHAR(255),
-    is_free TINYINT DEFAULT 1,
-    price DECIMAL(10,2),
-    rating DECIMAL(3,2) DEFAULT 0.00,
-    view_count INT DEFAULT 0,
-    status TINYINT DEFAULT 1,
-    created_by BIGINT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '应用ID',
+    name VARCHAR(100) NOT NULL COMMENT '应用名称',
+    description TEXT COMMENT '应用描述',
+    category VARCHAR(50) COMMENT '应用分类',
+    icon VARCHAR(255) COMMENT '应用图标',
+    url VARCHAR(255) COMMENT '应用链接',
+    is_free TINYINT DEFAULT 1 COMMENT '是否免费',
+    price DECIMAL(10,2) COMMENT '价格',
+    rating DECIMAL(3,2) DEFAULT 0.00 COMMENT '评分',
+    view_count INT DEFAULT 0 COMMENT '浏览次数',
+    status TINYINT DEFAULT 1 COMMENT '状态',
+    created_by BIGINT COMMENT '创建者ID',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     FOREIGN KEY (created_by) REFERENCES sys_user(id)
-);
+) COMMENT='AI应用表';
 
 -- 知识库表
 CREATE TABLE IF NOT EXISTS knowledge_base (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    content LONGTEXT,
-    category VARCHAR(50),
-    tags VARCHAR(500),
-    cover_image VARCHAR(255),
-    view_count INT DEFAULT 0,
-    like_count INT DEFAULT 0,
-    is_published TINYINT DEFAULT 1,
-    author_id BIGINT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '知识库ID',
+    title VARCHAR(200) NOT NULL COMMENT '标题',
+    content LONGTEXT COMMENT '内容',
+    category VARCHAR(50) COMMENT '分类',
+    tags VARCHAR(500) COMMENT '标签',
+    cover_image VARCHAR(255) COMMENT '封面图片',
+    view_count INT DEFAULT 0 COMMENT '浏览次数',
+    like_count INT DEFAULT 0 COMMENT '点赞次数',
+    is_published TINYINT DEFAULT 1 COMMENT '是否发布',
+    author_id BIGINT COMMENT '作者ID',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     FOREIGN KEY (author_id) REFERENCES sys_user(id)
-);
+) COMMENT='知识库表';
 
 -- AI案例表
 CREATE TABLE IF NOT EXISTS ai_case (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    description TEXT,
-    industry VARCHAR(50),
-    company_name VARCHAR(100),
-    ai_tools VARCHAR(500),
-    images VARCHAR(1000),
-    result TEXT,
-    view_count INT DEFAULT 0,
-    like_count INT DEFAULT 0,
-    status TINYINT DEFAULT 1,
-    created_by BIGINT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '案例ID',
+    title VARCHAR(200) NOT NULL COMMENT '案例标题',
+    description TEXT COMMENT '案例描述',
+    industry VARCHAR(50) COMMENT '行业',
+    company_name VARCHAR(100) COMMENT '公司名称',
+    ai_tools VARCHAR(500) COMMENT 'AI工具',
+    images VARCHAR(1000) COMMENT '图片',
+    result TEXT COMMENT '结果',
+    view_count INT DEFAULT 0 COMMENT '浏览次数',
+    like_count INT DEFAULT 0 COMMENT '点赞次数',
+    status TINYINT DEFAULT 1 COMMENT '状态',
+    created_by BIGINT COMMENT '创建者ID',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     FOREIGN KEY (created_by) REFERENCES sys_user(id)
-);
+) COMMENT='AI案例表';
 
 -- 资讯表
 CREATE TABLE IF NOT EXISTS ai_news (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    summary VARCHAR(500),
-    content LONGTEXT,
-    source VARCHAR(100),
-    category VARCHAR(50),
-    cover_image VARCHAR(255),
-    tags VARCHAR(500),
-    view_count INT DEFAULT 0,
-    is_hot TINYINT DEFAULT 0,
-    is_top TINYINT DEFAULT 0,
-    publish_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '资讯ID',
+    title VARCHAR(200) NOT NULL COMMENT '资讯标题',
+    summary VARCHAR(500) COMMENT '资讯摘要',
+    content LONGTEXT COMMENT '资讯内容',
+    source VARCHAR(100) COMMENT '资讯来源',
+    category VARCHAR(50) COMMENT '资讯分类',
+    cover_image VARCHAR(255) COMMENT '封面图片',
+    tags VARCHAR(500) COMMENT '标签',
+    view_count INT DEFAULT 0 COMMENT '浏览次数',
+    is_hot TINYINT DEFAULT 0 COMMENT '是否热门',
+    is_top TINYINT DEFAULT 0 COMMENT '是否置顶',
+    publish_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '发布时间',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT='资讯表';
 
 -- AI聊天记录表
 CREATE TABLE IF NOT EXISTS ai_chat_history (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT,
-    session_id VARCHAR(50),
-    question TEXT NOT NULL,
-    answer LONGTEXT,
-    model_name VARCHAR(50),
-    tokens_used INT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '聊天记录ID',
+    user_id BIGINT COMMENT '用户ID',
+    session_id VARCHAR(50) COMMENT '会话ID',
+    question TEXT NOT NULL COMMENT '问题',
+    answer LONGTEXT COMMENT '回答',
+    model_name VARCHAR(50) COMMENT '模型名称',
+    tokens_used INT COMMENT '使用的token数',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     FOREIGN KEY (user_id) REFERENCES sys_user(id)
-);
+) COMMENT='AI聊天记录表';
 
 -- 文件表
 CREATE TABLE IF NOT EXISTS sys_file (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    file_name VARCHAR(255) NOT NULL,
-    file_path VARCHAR(500) NOT NULL,
-    file_size BIGINT,
-    file_type VARCHAR(50),
-    upload_user BIGINT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '文件ID',
+    file_name VARCHAR(255) NOT NULL COMMENT '文件名',
+    file_path VARCHAR(500) NOT NULL COMMENT '文件路径',
+    file_size BIGINT COMMENT '文件大小',
+    file_type VARCHAR(50) COMMENT '文件类型',
+    upload_user BIGINT COMMENT '上传用户ID',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     FOREIGN KEY (upload_user) REFERENCES sys_user(id)
-);
+) COMMENT='文件表';
 
 -- 创建索引
 CREATE INDEX idx_ai_application_category ON ai_application(category);

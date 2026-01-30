@@ -451,13 +451,16 @@ graph TD
     Root[/]
 
     Login[/login]
+    Register[/register]
     Home[/]
     Application[/applications]
     AppDetail[/applications/:id]
     Knowledge[/knowledge]
     KnowledgeDetail[/knowledge/:id]
     Cases[/cases]
+    CaseDetail[/cases/:id]
     News[/news]
+    NewsDetail[/news/:id]
     Chat[/chat]
 
     Admin[/admin]
@@ -465,9 +468,11 @@ graph TD
     AdminApps[/admin/applications]
     AdminKnowledge[/admin/knowledge]
     AdminNews[/admin/news]
+    AdminCases[/admin/cases]
     AdminUsers[/admin/users]
 
     Root --> Login
+    Root --> Register
     Root --> Home
     Root --> Application
     Root --> Knowledge
@@ -478,14 +483,18 @@ graph TD
 
     Application --> AppDetail
     Knowledge --> KnowledgeDetail
+    Cases --> CaseDetail
+    News --> NewsDetail
 
     Admin --> AdminDashboard
     Admin --> AdminApps
     Admin --> AdminKnowledge
     Admin --> AdminNews
+    Admin --> AdminCases
     Admin --> AdminUsers
 
     style Login fill:#ffe1e1
+    style Register fill:#ffe1e1
     style Chat fill:#ffe1e1
     style Admin fill:#fff4e1
 ```
@@ -1498,6 +1507,6 @@ docker-compose down
 
 ---
 
-**文档版本：** v1.0
-**最后更新：** 2024-12-30
+**文档版本：** v1.1
+**最后更新：** 2026-01-30
 **维护者：** AI工具箱开发团队
