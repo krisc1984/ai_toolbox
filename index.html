@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具箱 - 智能化解决方案平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ember-orange: #FF6B35;
+            --coral-red: #F7931E;
+            --burnt-sienna: #C44536;
+            --deep-charcoal: #1A1A1A;
+            --warm-grey: #2D2D2D;
+            --cream-white: #FAF9F6;
+            --soft-white: #FFFFFF;
+            --gold: #D4AF37;
+            --soft-green: #88B04B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep-charcoal);
+            color: var(--cream-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(26,26,26,0.4) 50%, rgba(26,26,26,0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 24px;
+            max-width: 1200px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--ember-orange) 0%, var(--coral-red) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 48px;
+            color: var(--cream-white);
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            color: var(--soft-white);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cream-white);
+            border: 2px solid var(--ember-orange);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ember-orange);
+            transform: translateY(-4px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.8);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(26, 26, 26, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--ember-orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ember-orange);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ember-orange);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 96px 48px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--cream-white);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(250, 249, 246, 0.7);
+            margin-bottom: 64px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* AI Applications Module */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-chip {
+            padding: 10px 24px;
+            border-radius: 25px;
+            background: var(--warm-grey);
+            border: 2px solid transparent;
+            color: var(--cream-white);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: linear-gradient(90deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            border-color: var(--coral-red);
+            transform: translateY(-2px);
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 48px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 50px;
+            border: 2px solid var(--warm-grey);
+            background: var(--warm-grey);
+            color: var(--cream-white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--ember-orange);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .app-card {
+            background: linear-gradient(145deg, rgba(255,107,53,0.05) 0%, rgba(196,69,54,0.05) 100%);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(255, 107, 53, 0.2);
+            border-color: var(--ember-orange);
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--cream-white);
+        }
+
+        .app-description {
+            color: rgba(250, 249, 246, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-category {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--ember-orange);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .app-views {
+            color: rgba(250, 249, 246, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Knowledge Base Module */
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .knowledge-card {
+            background: var(--warm-grey);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--ember-orange);
+            box-shadow: 0 16px 48px rgba(255, 107, 53, 0.2);
+        }
+
+        .knowledge-content {
+            padding: 24px;
+        }
+
+        .knowledge-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--cream-white);
+        }
+
+        .knowledge-excerpt {
+            color: rgba(250, 249, 246, 0.7);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .knowledge-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        .knowledge-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(250, 249, 246, 0.1);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: rgba(250, 249, 246, 0.6);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .icon-btn:hover {
+            color: var(--ember-orange);
+            transform: scale(1.1);
+        }
+
+        .icon-btn.active {
+            color: var(--ember-orange);
+        }
+
+        /* Cases Module */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        .case-card {
+            background: var(--warm-grey);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(255, 107, 53, 0.2);
+        }
+
+        .case-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .case-content {
+            padding: 24px;
+        }
+
+        .case-industry {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            color: var(--soft-white);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .case-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--cream-white);
+        }
+
+        .case-description {
+            color: rgba(250, 249, 246, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .case-metrics {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .metric {
+            flex: 1;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--soft-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: rgba(250, 249, 246, 0.6);
+        }
+
+        /* News Module */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .news-card {
+            background: var(--warm-grey);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(255, 107, 53, 0.2);
+        }
+
+        .news-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: var(--ember-orange);
+            color: var(--soft-white);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .news-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--cream-white);
+        }
+
+        .news-excerpt {
+            color: rgba(250, 249, 246, 0.7);
+            margin-bottom: auto;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(250, 249, 246, 0.1);
+        }
+
+        .news-date {
+            color: rgba(250, 249, 246, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .news-category {
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        /* Chat Assistant */
+        .chat-bubble {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+            z-index: 1000;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(255, 107, 53, 0.7);
+            }
+        }
+
+        .chat-bubble:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-bubble svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 32px;
+            width: 400px;
+            height: 550px;
+            background: var(--warm-grey);
+            border-radius: 16px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .chat-window.active {
+            display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: linear-gradient(90deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: white;
+            font-weight: 600;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .message.ai .message-content {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--cream-white);
+        }
+
+        .message.user .message-content {
+            background: var(--ember-orange);
+            color: white;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ember-orange);
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .chat-input-area {
+            padding: 16px;
+            border-top: 1px solid rgba(250, 249, 246, 0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 25px;
+            border: 1px solid rgba(250, 249, 246, 0.2);
+            background: var(--deep-charcoal);
+            color: var(--cream-white);
+            font-size: 0.95rem;
+        }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: var(--ember-orange);
+        }
+
+        .chat-send {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ember-orange) 0%, var(--coral-red) 100%);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: var(--warm-grey);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 48px;
+            position: relative;
+            animation: scaleIn 0.3s;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--cream-white);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-charcoal);
+            padding: 64px 48px 32px;
+            text-align: center;
+            border-top: 1px solid rgba(250, 249, 246, 0.1);
+        }
+
+        footer p {
+            color: rgba(250, 249, 246, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 64px 24px;
+            }
+
+            .apps-grid, .knowledge-grid, .cases-grid, .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-window {
+                width: calc(100% - 32px);
+                right: 16px;
+                bottom: 90px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .case-metrics {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">AI工具箱</a>
+        <ul class="nav-links">
+            <li><a href="#apps">应用</a></li>
+            <li><a href="#knowledge">知识库</a></li>
+            <li><a href="#cases">案例</a></li>
+            <li><a href="#news">资讯</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay loop muted playsinline preload="metadata">
+            <source src="./videos/hero_neural_network.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">AI工具箱</h1>
+            <p class="hero-subtitle">汇聚前沿AI工具，赋能智能化转型，开启无限可能</p>
+            <div class="hero-cta">
+                <a href="#apps" class="btn btn-primary">探索工具</a>
+                <a href="#" class="btn btn-secondary">开始体验</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Applications Module -->
+    <section id="apps" class="fade-in-section">
+        <h2 class="section-title">AI应用工具</h2>
+        <p class="section-subtitle">精选高效AI工具，覆盖图像、文本、数据等多个领域</p>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索应用...">
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-chip active" data-category="all">全部</button>
+            <button class="filter-chip" data-category="image">图像生成</button>
+            <button class="filter-chip" data-category="text">文本处理</button>
+            <button class="filter-chip" data-category="data">数据分析</button>
+            <button class="filter-chip" data-category="voice">语音合成</button>
+            <button class="filter-chip" data-category="video">视频编辑</button>
+            <button class="filter-chip" data-category="code">代码助手</button>
+        </div>
+
+        <div class="apps-grid" id="appsGrid">
+            <!-- Apps will be dynamically generated -->
+        </div>
+    </section>
+
+    <!-- Knowledge Base Module -->
+    <section id="knowledge" class="fade-in-section">
+        <h2 class="section-title">知识库</h2>
+        <p class="section-subtitle">AI领域前沿知识与实践指南</p>
+
+        <div class="knowledge-grid" id="knowledgeGrid">
+            <!-- Knowledge cards will be dynamically generated -->
+        </div>
+    </section>
+
+    <!-- Cases Module -->
+    <section id="cases" class="fade-in-section">
+        <h2 class="section-title">行业案例</h2>
+        <p class="section-subtitle">AI技术在各行业的成功应用实践</p>
+
+        <div class="cases-grid" id="casesGrid">
+            <!-- Case cards will be dynamically generated -->
+        </div>
+    </section>
+
+    <!-- News Module -->
+    <section id="news" class="fade-in-section">
+        <h2 class="section-title">AI资讯</h2>
+        <p class="section-subtitle">掌握AI行业最新动态与技术趋势</p>
+
+        <div class="news-grid" id="newsGrid">
+            <!-- News cards will be dynamically generated -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AI工具箱. All rights reserved. | Powered by Matrix Agent</p>
+    </footer>
+
+    <!-- Chat Assistant -->
+    <div class="chat-bubble" id="chatBubble">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+        </svg>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h3>AI智能助手</h3>
+            <button class="chat-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai">
+                <div class="message-avatar">AI</div>
+                <div class="message-content">您好！我是AI智能助手，有什么可以帮助您的吗？</div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="输入消息...">
+            <button class="chat-send" id="chatSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="appModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const appsData = [
+            {
+                id: 1,
+                name: 'AI图像生成',
+                category: 'image',
+                icon: './videos/3b5abb58-e209-467c-94e2-1b457cfebdb5.png',
+                description: '通过文本描述生成高质量图像，支持多种风格和分辨率',
+                views: 15420
+            },
+            {
+                id: 2,
+                name: 'AI文本处理',
+                category: 'text',
+                icon: './videos/36199aa2-cd6d-4099-aa15-571104713337.png',
+                description: '智能文本分析、摘要生成、情感识别等全方位处理',
+                views: 12380
+            },
+            {
+                id: 3,
+                name: 'AI数据分析',
+                category: 'data',
+                icon: './videos/cc4aca62-4292-4480-a4cc-63aa0904fde2.png',
+                description: '自动化数据清洗、可视化和预测分析',
+                views: 9850
+            },
+            {
+                id: 4,
+                name: 'AI语音合成',
+                category: 'voice',
+                icon: './videos/e02f4f67-2702-4101-8512-0a3616d3d662.png',
+                description: '自然流畅的语音生成，支持多种语言和声音风格',
+                views: 8920
+            },
+            {
+                id: 5,
+                name: 'AI视频编辑',
+                category: 'video',
+                icon: './videos/2f130319-e44d-4710-afe8-f632aa8cbe27.png',
+                description: '智能视频剪辑、特效添加、自动字幕生成',
+                views: 11250
+            },
+            {
+                id: 6,
+                name: 'AI代码助手',
+                category: 'code',
+                icon: './videos/5e4b884e-ddcd-4e90-9df2-13728efc4307.png',
+                description: '智能代码补全、错误检测、代码优化建议',
+                views: 18700
+            }
+        ];
+
+        const knowledgeData = [
+            {
+                id: 1,
+                title: '大语言模型入门指南',
+                excerpt: '全面了解大语言模型的原理、应用场景和最佳实践...',
+                tags: ['LLM', '深度学习', '入门'],
+                likes: 342,
+                bookmarks: 128
+            },
+            {
+                id: 2,
+                title: 'Transformer架构深度解析',
+                excerpt: '详细解读Transformer架构的核心原理和创新点...',
+                tags: ['Transformer', '架构', '高级'],
+                likes: 567,
+                bookmarks: 234
+            },
+            {
+                id: 3,
+                title: 'AI绘画技术发展与应用',
+                excerpt: '探索AI绘画技术的演进历程和商业化应用...',
+                tags: ['图像生成', 'AIGC', '应用'],
+                likes: 423,
+                bookmarks: 189
+            },
+            {
+                id: 4,
+                title: '强化学习实战案例',
+                excerpt: '从零开始构建强化学习模型，解决实际问题...',
+                tags: ['强化学习', '实战', '机器学习'],
+                likes: 298,
+                bookmarks: 145
+            }
+        ];
+
+        const casesData = [
+            {
+                id: 1,
+                industry: '金融',
+                title: '智能风控系统',
+                description: 'AI驱动的风险识别与预警系统，提升风控效率',
+                image: './videos/42a06465-a84e-43dd-87c5-189c69f9e08a.jpg',
+                metrics: [
+                    { value: '40%', label: '效率提升' },
+                    { value: '85%', label: '准确率' }
+                ]
+            },
+            {
+                id: 2,
+                industry: '医疗',
+                title: 'AI辅助诊断',
+                description: '基于深度学习的医学影像分析与诊断辅助',
+                image: './videos/b0d76ae8-2781-4ff3-9ae6-10590f0b6217.jpg',
+                metrics: [
+                    { value: '92%', label: '诊断准确率' },
+                    { value: '60%', label: '时间节省' }
+                ]
+            },
+            {
+                id: 3,
+                industry: '零售',
+                title: '智能推荐系统',
+                description: 'AI驱动的个性化商品推荐，提升转化率',
+                image: './videos/5ccc2d66-535c-4263-808e-ffc0ff31e273.jpg',
+                metrics: [
+                    { value: '35%', label: '转化率提升' },
+                    { value: '50%', label: '用户满意度' }
+                ]
+            }
+        ];
+
+        const newsData = [
+            {
+                id: 1,
+                title: 'GPT-5发布：多模态能力再升级',
+                excerpt: '最新一代大语言模型GPT-5正式发布，带来革命性的多模态交互体验...',
+                category: '技术',
+                date: '2026-01-25',
+                hot: true
+            },
+            {
+                id: 2,
+                title: 'AI绘画工具突破新纪录',
+                excerpt: '新一代AI绘画工具在图像质量和生成速度上实现双重突破...',
+                category: '创新',
+                date: '2026-01-23',
+                hot: true
+            },
+            {
+                id: 3,
+                title: '自动驾驶技术进入商用阶段',
+                excerpt: '多家科技公司宣布自动驾驶技术正式进入商业化应用阶段...',
+                category: '应用',
+                date: '2026-01-20',
+                hot: false
+            },
+            {
+                id: 4,
+                title: 'AI伦理规范全球标准出台',
+                excerpt: '国际组织发布AI伦理与安全使用的全球统一标准...',
+                category: '政策',
+                date: '2026-01-18',
+                hot: false
+            }
+        ];
+
+        // Render Apps
+        function renderApps(category = 'all', searchTerm = '') {
+            const grid = document.getElementById('appsGrid');
+            let filteredApps = appsData;
+
+            if (category !== 'all') {
+                filteredApps = appsData.filter(app => app.category === category);
+            }
+
+            if (searchTerm) {
+                filteredApps = filteredApps.filter(app => 
+                    app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    app.description.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            grid.innerHTML = filteredApps.map(app => `
+                <div class="app-card" onclick="openAppModal(${app.id})">
+                    <img src="${app.icon}" alt="${app.name}" class="app-icon" onerror="this.style.display='none'">
+                    <h3 class="app-title">${app.name}</h3>
+                    <p class="app-description">${app.description}</p>
+                    <div class="app-meta">
+                        <span class="app-category">${getCategoryName(app.category)}</span>
+                        <span class="app-views">${app.views.toLocaleString()} 次浏览</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                image: '图像生成',
+                text: '文本处理',
+                data: '数据分析',
+                voice: '语音合成',
+                video: '视频编辑',
+                code: '代码助手'
+            };
+            return names[category] || category;
+        }
+
+        // Render Knowledge
+        function renderKnowledge() {
+            const grid = document.getElementById('knowledgeGrid');
+            grid.innerHTML = knowledgeData.map(item => `
+                <div class="knowledge-card">
+                    <div class="knowledge-content">
+                        <h3 class="knowledge-title">${item.title}</h3>
+                        <p class="knowledge-excerpt">${item.excerpt}</p>
+                        <div class="knowledge-tags">
+                            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="knowledge-actions">
+                            <div class="action-btns">
+                                <button class="icon-btn" onclick="toggleLike(this)">
+                                    <span>♥</span> <span>${item.likes}</span>
+                                </button>
+                                <button class="icon-btn" onclick="toggleBookmark(this)">
+                                    <span>★</span> <span>${item.bookmarks}</span>
+                                </button>
+                            </div>
+                            <a href="#" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">阅读更多</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Cases
+        function renderCases() {
+            const grid = document.getElementById('casesGrid');
+            grid.innerHTML = casesData.map(item => `
+                <div class="case-card">
+                    <img src="${item.image}" alt="${item.title}" class="case-image" loading="lazy" onerror="this.style.display='none'">
+                    <div class="case-content">
+                        <span class="case-industry">${item.industry}</span>
+                        <h3 class="case-title">${item.title}</h3>
+                        <p class="case-description">${item.description}</p>
+                        <div class="case-metrics">
+                            ${item.metrics.map(metric => `
+                                <div class="metric">
+                                    <span class="metric-value">${metric.value}</span>
+                                    <span class="metric-label">${metric.label}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">查看详情</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render News
+        function renderNews() {
+            const grid = document.getElementById('newsGrid');
+            grid.innerHTML = newsData.map(item => `
+                <div class="news-card">
+                    ${item.hot ? '<span class="news-badge">热门</span>' : ''}
+                    <div class="news-content">
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <div class="news-meta">
+                            <span class="news-date">${item.date}</span>
+                            <span class="news-category">${item.category}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Apps
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                renderApps(this.dataset.category);
+            });
+        });
+
+        // Search Apps
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const category = document.querySelector('.filter-chip.active').dataset.category;
+            renderApps(category, e.target.value);
+        });
+
+        // Modal
+        function openAppModal(appId) {
+            const app = appsData.find(a => a.id === appId);
+            const modal = document.getElementById('appModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <img src="${app.icon}" alt="${app.name}" style="width: 100px; height: 100px; border-radius: 16px; margin-bottom: 24px;" onerror="this.style.display='none'">
+                <h2 style="font-size: 2.5rem; margin-bottom: 16px; color: var(--cream-white);">${app.name}</h2>
+                <p style="font-size: 1.2rem; color: rgba(250, 249, 246, 0.7); margin-bottom: 32px;">${app.description}</p>
+                <div style="padding: 24px; background: rgba(255, 107, 53, 0.1); border-radius: 12px; margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 16px; color: var(--ember-orange);">核心功能</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 8px 0; color: var(--cream-white);">✓ 智能化处理流程</li>
+                        <li style="padding: 8px 0; color: var(--cream-white);">✓ 高精度结果输出</li>
+                        <li style="padding: 8px 0; color: var(--cream-white);">✓ 快速响应能力</li>
+                        <li style="padding: 8px 0; color: var(--cream-white);">✓ 灵活的定制选项</li>
+                    </ul>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 16px;">立即使用</button>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        document.getElementById('modalClose').addEventListener('click', function() {
+            document.getElementById('appModal').classList.remove('active');
+        });
+
+        document.getElementById('appModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // Chat
+        const chatBubble = document.getElementById('chatBubble');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatBubble.addEventListener('click', function() {
+            chatWindow.classList.add('active');
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatWindow.classList.remove('active');
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `
+                <div class="message-avatar">我</div>
+                <div class="message-content">${message}</div>
+            `;
+            chatMessages.appendChild(userMsg);
+            chatInput.value = '';
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate AI response
+            setTimeout(() => {
+                typingDiv.remove();
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+                aiMsg.innerHTML = `
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">感谢您的咨询！我已收到您的消息："${message}"。我会为您提供专业的AI工具推荐和使用指导。</div>
+                `;
+                chatMessages.appendChild(aiMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 2000);
+        }
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Toggle Like
+        function toggleLike(btn) {
+            btn.classList.toggle('active');
+            const count = btn.querySelector('span:last-child');
+            const current = parseInt(count.textContent);
+            count.textContent = btn.classList.contains('active') ? current + 1 : current - 1;
+        }
+
+        // Toggle Bookmark
+        function toggleBookmark(btn) {
+            btn.classList.toggle('active');
+            const count = btn.querySelector('span:last-child');
+            const current = parseInt(count.textContent);
+            count.textContent = btn.classList.contains('active') ? current + 1 : current - 1;
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize
+        renderApps();
+        renderKnowledge();
+        renderCases();
+        renderNews();
+    </script>
+</body>
+</html>

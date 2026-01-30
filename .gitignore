@@ -1,0 +1,41 @@
+# IDE files
+.vscode/
+.idea/
+
+# Node.js dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Log files
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Java build files
+target/
+out/
+
+# Maven files
+*.iml
+*.iws
+.idea/
+
+# Test files
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
